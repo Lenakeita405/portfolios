@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Développeur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2E2233;
+    --ink-soft:#3D2E44;
+    --paper:#FBF8F9;
+    --paper-alt:#F4EEF1;
+    --slate:#7A6A78;
+    --slate-light:#A896A3;
+    --line:#4A3A4A;
+    --line-light:#E7DCE2;
+    --green:#A8536E;
+    --green-bright:#BD647E;
+    --gold:#C9A227;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'IBM Plex Sans',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  ::selection{background:var(--green);color:var(--white);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(247,248,250,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-light);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:18px 32px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .logo{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:15px;letter-spacing:-0.02em;}
+  .logo span{color:var(--green);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{
+    color:var(--slate);text-decoration:none;font-size:13px;
+    font-family:'IBM Plex Mono',monospace;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .status-dot{
+    display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--green-bright);margin-right:6px;
+    box-shadow:0 0 0 3px rgba(63,145,102,0.15);
+  }
+
+  /* HERO */
+  .hero{
+    max-width:1080px;margin:0 auto;padding:100px 32px 80px;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--green);
+    display:flex;align-items:center;margin-bottom:24px;
+  }
+  .hero h1{
+    font-family:'Newsreader',serif;
+    font-size:52px;font-weight:500;letter-spacing:-0.01em;
+    line-height:1.2;max-width:720px;
+  }
+  .hero h1 em{
+    font-style:italic;color:var(--green);font-weight:400;
+  }
+  .hero p{
+    margin-top:24px;font-size:17px;color:var(--slate);max-width:560px;
+  }
+  .hero-actions{
+    margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;
+    padding:12px 24px;border-radius:24px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:all .15s ease;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink);color:var(--white);}
+  .btn-primary:hover{background:var(--ink-soft);}
+  .btn-secondary{border-color:var(--line-light);color:var(--ink);}
+  .btn-secondary:hover{border-color:var(--slate);}
+
+  .terminal{
+    margin-top:56px;max-width:600px;
+    background:var(--ink);border-radius:16px;overflow:hidden;
+    box-shadow:0 20px 40px -20px rgba(46,34,51,0.35);
+  }
+  .terminal-bar{
+    display:flex;align-items:center;gap:6px;
+    padding:10px 14px;background:var(--ink-soft);
+  }
+  .terminal-bar span{width:9px;height:9px;border-radius:50%;background:#3A4C63;}
+  .terminal-body{padding:20px 22px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#B8C4D4;}
+  .terminal-body .line{margin-bottom:6px;}
+  .terminal-body .prompt{color:var(--green-bright);}
+  .terminal-body .out{color:#7C8CA0;}
+
+  /* SECTION LABEL — path style */
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate-light);
+    display:flex;align-items:center;gap:10px;margin-bottom:20px;
+  }
+  .section-label::after{
+    content:'';flex:1;height:1px;background:var(--line-light);
+  }
+
+  section{max-width:1080px;margin:0 auto;padding:64px 32px;}
+  section h2{font-family:'Newsreader',serif;font-size:28px;font-weight:500;letter-spacing:-0.01em;margin-bottom:32px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:start;}
+  .about-grid p{color:var(--slate);font-size:15px;margin-bottom:16px;}
+  .stack-list{list-style:none;}
+  .stack-list li{
+    display:flex;justify-content:space-between;padding:12px 0;
+    border-bottom:1px solid var(--line-light);font-size:14px;
+  }
+  .stack-list li span:first-child{color:var(--slate);font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .stack-list li span:last-child{font-weight:500;}
+
+  /* PROJECTS */
+  .project{
+    display:grid;grid-template-columns:60px 1fr;gap:24px;
+    padding:32px 0;border-bottom:1px solid var(--line-light);
+  }
+  .project:last-child{border-bottom:none;}
+  .project-num{font-family:'IBM Plex Mono',monospace;color:var(--slate-light);font-size:13px;padding-top:4px;}
+  .project-title{font-family:'Newsreader',serif;font-size:21px;font-weight:500;margin-bottom:8px;}
+  .project-desc{color:var(--slate);font-size:14.5px;max-width:600px;margin-bottom:16px;}
+  .project-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    background:var(--paper-alt);color:var(--ink-soft);
+    padding:4px 12px;border-radius:20px;border:1px solid var(--line-light);
+  }
+  .project-links{margin-left:auto;display:flex;gap:16px;}
+  .project-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--green);
+    text-decoration:none;
+  }
+  .project-links a:hover{text-decoration:underline;}
+
+  /* EXPERIENCE */
+  .exp-row{
+    display:grid;grid-template-columns:140px 1fr auto;gap:20px;
+    padding:20px 0;border-bottom:1px solid var(--line-light);align-items:start;
+  }
+  .exp-row:last-child{border-bottom:none;}
+  .exp-period{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate-light);padding-top:3px;}
+  .exp-role{font-weight:600;font-size:15px;}
+  .exp-company{color:var(--slate);font-size:13.5px;margin-top:2px;}
+
+  /* CONTACT */
+  .contact{
+    background:var(--ink);color:var(--white);border-radius:20px;
+    padding:56px 40px;text-align:left;
+  }
+  .contact h2{color:var(--white);}
+  .contact p{color:#9FADC0;max-width:480px;margin-bottom:28px;font-size:15px;}
+  .contact-links{display:flex;gap:14px;flex-wrap:wrap;}
+  .contact-links a{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;
+    color:var(--white);border:1px solid #5A4658;padding:10px 20px;
+    border-radius:22px;text-decoration:none;transition:border-color .15s ease;
+  }
+  .contact-links a:hover{border-color:var(--green-bright);}
+
+  footer{
+    max-width:1080px;margin:0 auto;padding:32px;
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--slate-light);
+    border-top:1px solid var(--line-light);
+  }
+
+  @media(max-width:720px){
+    .hero h1{font-size:34px;}
+    .about-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .exp-row{grid-template-columns:1fr;gap:6px;}
+    .contact{padding:36px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">lk<span>.dev</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">~/about</a></li>
+      <li><a href="#projects">~/projects</a></li>
+      <li><a href="#experience">~/experience</a></li>
+      <li><a href="#contact">~/contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow"><span class="status-dot"></span>disponible pour de nouvelles missions</div>
+  <h1>Lena Keïta <em>— développeuse web</em></h1>
+  <p>Je conçois et je livre des produits web robustes, du backend à l'interface. Focus sur la fiabilité, la performance et le code qui tient dans le temps.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">Voir les projets →</a>
+    <a href="#contact" class="btn btn-secondary">Me contacter</a>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span></span><span></span><span></span></div>
+    <div class="terminal-body">
+      <div class="line"><span class="prompt">$</span> whoami</div>
+      <div class="line out">développeuse web — 6 ans d'expérience</div>
+      <div class="line"><span class="prompt">$</span> stack --primary</div>
+      <div class="line out">TypeScript · Node.js · React · PostgreSQL</div>
+      <div class="line"><span class="prompt">$</span> status</div>
+      <div class="line out">build passing · ouvert aux opportunités</div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-label">~/about</div>
+  <div class="about-grid">
+    <div>
+      <p>Développeur full-stack basé en France, spécialisé dans la conception d'applications web à forte charge. J'aime les problèmes bien définis, le code lisible et les architectures qui vieillissent bien.</p>
+      <p>Sur les cinq dernières années, j'ai travaillé sur des produits SaaS B2B, des plateformes e-commerce et des outils internes pour des équipes techniques. Toujours à l'aise sur toute la chaîne : base de données, API, interface.</p>
+    </div>
+    <ul class="stack-list">
+      <li><span>LANGUES</span><span>TypeScript, Python, SQL</span></li>
+      <li><span>FRONTEND</span><span>React, Next.js</span></li>
+      <li><span>BACKEND</span><span>Node.js, PostgreSQL</span></li>
+      <li><span>INFRA</span><span>Docker, AWS, CI/CD</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">~/projects</div>
+  <h2>Projets sélectionnés</h2>
+
+  <div class="project">
+    <div class="project-num mono">01</div>
+    <div>
+      <div class="project-title">Plateforme de gestion logistique</div>
+      <div class="project-desc">Refonte complète du système de suivi de commandes pour une entreprise de transport, réduisant le temps de traitement de 40%.</div>
+      <div class="project-meta">
+        <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span>
+        <div class="project-links"><a href="#">Démo ↗</a><a href="#">Code ↗</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-num mono">02</div>
+    <div>
+      <div class="project-title">API de facturation multi-tenant</div>
+      <div class="project-desc">Architecture d'API pour gérer la facturation de 200+ clients simultanément, avec facturation automatisée et conformité fiscale.</div>
+      <div class="project-meta">
+        <span class="tag">TypeScript</span><span class="tag">Stripe</span><span class="tag">Docker</span>
+        <div class="project-links"><a href="#">Code ↗</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-num mono">03</div>
+    <div>
+      <div class="project-title">Dashboard analytique temps réel</div>
+      <div class="project-desc">Outil de visualisation de données pour une équipe produit, avec mises à jour en temps réel via WebSocket.</div>
+      <div class="project-meta">
+        <span class="tag">Next.js</span><span class="tag">WebSocket</span><span class="tag">D3.js</span>
+        <div class="project-links"><a href="#">Démo ↗</a><a href="#">Code ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">~/experience</div>
+  <h2>Parcours</h2>
+
+  <div class="exp-row">
+    <div class="exp-period mono">2023 — auj.</div>
+    <div>
+      <div class="exp-role">Développeur Senior Full-Stack</div>
+      <div class="exp-company">Entreprise Tech · Paris</div>
+    </div>
+  </div>
+  <div class="exp-row">
+    <div class="exp-period mono">2021 — 2023</div>
+    <div>
+      <div class="exp-role">Développeur Full-Stack</div>
+      <div class="exp-company">Startup SaaS · Lyon</div>
+    </div>
+  </div>
+  <div class="exp-row">
+    <div class="exp-period mono">2019 — 2021</div>
+    <div>
+      <div class="exp-role">Développeur Frontend</div>
+      <div class="exp-company">Agence Digitale · Bordeaux</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <h2>Travaillons ensemble</h2>
+    <p>Actuellement disponible pour des missions freelance ou un poste à temps plein. N'hésitez pas à me contacter.</p>
+    <div class="contact-links">
+      <a href="mailto:lenakeita139@gmail.com">Email ↗</a>
+      <a href="#">LinkedIn ↗</a>
+      <a href="https://github.com/Lenakeita405">GitHub ↗</a>
+      <a href="#">CV (PDF) ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Lena Keïta</span>
+  <span>Construit avec soin</span>
+</footer>
+
+</body>
+</html>
